@@ -13,11 +13,11 @@ A **Java Spring Boot REST API** for organizing construction projects, assigning 
 - Flag unfinished tasks with past due dates as overdue
 - Validate request fields and return meaningful HTTP error codes
 - Persist data using Spring Data JPA (H2 for quick start, PostgreSQL optional)
-- JUnit 5 / Mockito unit tests
+- JUnit 5 / Mockito unit and integration tests
 
 ## Tech stack
 
-Java 21 · Spring Boot 3.5 · Spring Web · Spring Data JPA · Hibernate · Jakarta Validation · Maven · H2 · PostgreSQL · JUnit 5 · Mockito
+Java 21 · Spring Boot 3.5 · Spring Web · Spring Data JPA · Hibernate · Jakarta Validation · Maven · H2 · PostgreSQL · JUnit 5 · Mockito · Springdoc OpenAPI / Swagger UI · GitHub Actions
 
 ## Quick start
 
@@ -37,6 +37,19 @@ mvn spring-boot:run -Dspring-boot.run.profiles=postgres
 ```
 
 The Docker Compose example uses local development credentials only; change them before any non-local deployment.
+
+## Interactive API documentation (Swagger UI)
+
+Start the application with `mvn spring-boot:run`, then open:
+
+- Swagger UI: http://localhost:8080/swagger-ui/index.html
+- OpenAPI JSON: http://localhost:8080/v3/api-docs
+
+Swagger UI lists the REST endpoints and provides a **Try it out** interface for sending requests. The application must be running locally to use these links.
+
+## Continuous integration
+
+GitHub Actions runs `mvn -B verify` with JDK 21 on every push to `main` and on pull requests targeting `main`. See the **Actions** tab for build and test results.
 
 ## Example API usage
 
@@ -100,7 +113,7 @@ curl -X PUT http://localhost:8080/api/projects/1/tasks/1 \
 mvn test
 ```
 
-Unit tests cover invalid project dates, missing projects, empty progress, and overdue task logic. **The tests have not been executed in the packaging environment**; run `mvn test` locally to verify them.
+Unit and integration tests cover project validation, missing resources, project creation and deletion, employee creation, progress calculation, and overdue task logic. Run `mvn test` locally or check the latest GitHub Actions run for the current build status.
 
 ## Design and limitations
 
